@@ -39,7 +39,7 @@ http://fr.dbpedia.org/resource/Dijon
 La requête SPARQL ne va pas réellement différer de la précédente, seulement cette fois-ci nous veillerons à remplacer la ressource par une variable dans notre script.
 
 Pour rappel, nous avions utilisé la requête suivante (avec des résultats uniquement en français) :
-```xml
+{% highlight xml %}
 PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
@@ -55,12 +55,12 @@ OPTIONAL {
 
 FILTER( lang(?label) = "fr" && lang(?abstract) = "fr")
 }
-```
+{% endhighlight %}
 
 
 ### La page HTML
 Comme je vous l'ai dit, nous allons quelque peu changer le code du fichier index html pour obtenir ceci :
-```html
+{% highlight html %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr" >
 <head>
@@ -96,14 +96,15 @@ Comme je vous l'ai dit, nous allons quelque peu changer le code du fichier index
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
-```
+{% endhighlight %}
 
 Etudions de plus près l'élément "button" :
-```html
+{% highlight html %}
 <button id="target" class="btn btn-info" resource="http://fr.dbpedia.org/resource/Rennes" onclick="getInformation(this)">
   Rennes
 </button>
-```
+{% endhighlight %}
+
 Chaque bouton renseigne une ressource qui correspond à la ressource d'une ville. C'est grâce à cette ressource que nous allons pouvoir faire varier notre requête en fonction de la ville cible.
 
 De plus, à chaque fois qu'on cliqueras sur le bouton, la fonction "getInformation" sera appelée, c'est elle qui va se charger de renvoyer les informations depuis DBpedia.
@@ -111,7 +112,7 @@ De plus, à chaque fois qu'on cliqueras sur le bouton, la fonction "getInformati
 ### Le script
 Voici le script qui se charge de récupérer les données depuis DBpedia.
 
-```javascript
+{% highlight javascript %}
 function getInformation(button){
   //On recupère l'URI vers notre ressource
   var uri = button.getAttribute("resource");
@@ -190,28 +191,28 @@ function getInformation(button){
     }
   }
 }
-```
+{% endhighlight %}
 
 Pour récupérer l'URI de notre ressource, il suffit d'utiliser le code ci-dessus.
-```javascript
+{% highlight javascript %}
   var uri = button.getAttribute("resource");
-```
+{% endhighlight %}
 
 La requête SPARQL ne change pas à ceci près que nous avons désormais placé la variable 'uri' en lieu en place de l'URI vers la ressource de Rennes.
 
 Une fois que nous obtenons la réponse de DBpedia, nous utilisons la fonction "initialisation()" pour nous assurer que la "div" ayant l'identifiant "infos" de notre document soit vide (cela engendrerait des conflits sinon).
 
 Puis nous récupérons toutes les données dont nous avons besoin en les plaçant dans des variables pour plus de lisibilité :
-```javascript
+{% highlight javascript %}
 var doc = JSON.parse(req.responseText);
 var label = doc.results.bindings[0].label.value;
 var abstract =  doc.results.bindings[0].abstract.value;
 var thumbnail =  doc.results.bindings[0].thumbnail.value;
 var thumbnailCaption =  doc.results.bindings[0].thumbnailCaption.value;
-```
+{% endhighlight %}
 
 Et pour finir nous créons chaque élément contenant les informations sur la ville en prenant soin de les ajouter au DOM.
-```javascript
+{% highlight javascript %}
 //On crée le titre
 newTitle = document.createElement("h2");
 newTitle.innerHTML = label;
@@ -237,7 +238,7 @@ document.getElementById("infos").appendChild(newAbstract);
 document.getElementById("infos").appendChild(newThumbnail);
 document.getElementById("thumbnail").appendChild(img);
 document.getElementById("thumbnail").appendChild(newThumbnailCaption);
-```
+{% endhighlight %}
 
 ## Aperçu de notre application
 ![Infos de Rennes]({{ site.url }}/assets/img/exemple_enrichir_DBpedia2.png)
