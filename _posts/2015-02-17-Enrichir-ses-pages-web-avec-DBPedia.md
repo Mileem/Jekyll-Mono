@@ -6,7 +6,7 @@ categories:
 - blog
 ---
 
-Comment enrichir ses pages web avec DBpedia simplement avec quelques lignes de javascript.
+Cet article présente comment enrichir ses pages web avec DBpedia simplement avec quelques lignes de javascript. En utilisant DBpedia, vous pourrez donc ajouter de la plus value à vos articles publiés sur le web.
 
 ----------
 
